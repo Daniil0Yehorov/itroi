@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="test20.xslt"?>
+<StoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Full.xsd">
+
+    <!-- Раздел Products -->
+    <Products>
+        <Product>
+            <ID>1</ID>
+            <Name>Whiskas Cat Food</Name>
+            <Description>Сухий корм для котів зі смаком курки.</Description>
+            <Price>50.00</Price>
+            <Category>Корм для котів</Category>
+            <CountInStock>901</CountInStock>
+        </Product>
+        <Product>
+            <ID>2</ID>
+            <Name>Pedigree Dog Food</Name>
+            <Description>Сухий корм для собак зі смаком яловичини</Description>
+            <Price>80.00</Price>
+            <Category>Корм для собак</Category>
+            <CountInStock>51</CountInStock>
+        </Product>
+    </Products>
+
+    <!--Carts -->
+    <Carts>
+        <Cart>
+            <ID>1</ID>
+            <UserID>1</UserID>
+            <Products>
+                <ProductID>1</ProductID>
+                <ProductID>2</ProductID>
+            </Products>
+            <TotalAmount>130.00</TotalAmount>
+            <!-- Потім додам адрес  -->
+        </Cart>
+    </Carts>
+
+    <!-- Users -->
+    <Users>
+        <User>
+            <ID>1</ID>
+            <Type>User</Type>
+            <Login>DAnchik232</Login>
+            <Password>BBeight23Ada</Password>
+            <Name>Joe</Name>
+        </User>
+        <User>
+            <ID>2</ID>
+            <Type>Admin</Type>
+            <Login>AK232AKdadk2AD</Login>
+            <Password>aldkakdLKADKL23</Password>
+            <Name>Malfrey</Name>
+        </User>
+    </Users>
+
+</StoreData>

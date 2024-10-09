@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Product -->
+    <xs:complexType name="Product">
+        <xs:sequence>
+            <xs:element name="ID" type="xs:integer"/>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="Description" type="xs:string"/>
+            <xs:element name="Price" type="xs:decimal"/>
+            <xs:element name="Category" type="xs:string"/>
+            <xs:element name="CountInStock" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Products -->
+    <xs:element name="Products">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Product" maxOccurs="unbounded" type="Product"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--  Cart -->
+    <xs:complexType name="CartType">
+        <xs:sequence>
+            <xs:element name="ID" type="xs:integer"/>
+            <xs:element name="UserID" type="xs:integer"/>
+            <xs:element name="Products">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ProductID" type="xs:integer" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TotalAmount" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Carts -->
+    <xs:element name="Carts">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Cart" maxOccurs="unbounded" type="CartType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--  User -->
+    <xs:complexType name="UserType">
+        <xs:sequence>
+            <xs:element name="ID" type="xs:integer"/>
+            <xs:element name="Type" type="xs:string"/>
+            <xs:element name="Login" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Users -->
+    <xs:element name="Users">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="User" maxOccurs="unbounded" type="UserType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- All Data -->
+    <xs:element name="StoreData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Products"/>
+                <xs:element ref="Carts"/>
+                <xs:element ref="Users"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
