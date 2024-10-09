@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Users xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="User.xsd">
+    <User>
+        <ID>1</ID>
+        <Type>User</Type>
+        <Login>DAnchik232</Login>
+        <Password>BBeight23Ada</Password>
+        <Name>Joe</Name>
+    </User>
+    <User>
+        <ID>2</ID>
+        <Type>Admin</Type>
+        <Login>AK232AKdadk2AD</Login>
+        <Password>aldkakdLKADKL23</Password>
+        <Name>Malfrey</Name>
+    </User>
+</Users>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="Carts">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Cart" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ID" type="xs:integer"/>
+                            <xs:element name="UserID" type="xs:integer"/>
+                            <xs:element name="Products">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ProductID" type="xs:integer" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TotalAmount" type="xs:decimal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

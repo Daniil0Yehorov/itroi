@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Carts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="koshik.xsd">
+    <Cart>
+        <ID>1</ID>
+        <UserID>1</UserID>
+        <Products>
+            <ProductID>1</ProductID>
+            <ProductID>2</ProductID>
+        </Products>
+        <TotalAmount>130.00</TotalAmount>
+        <!--адрес куда вести-->
+    </Cart>
+</Carts>
