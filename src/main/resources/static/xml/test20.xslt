@@ -73,6 +73,8 @@
                         <th>Type</th>
                         <th>Login</th>
                         <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
                     </tr>
                     <xsl:for-each select="Users/User">
                         <tr>
@@ -80,6 +82,26 @@
                             <td><xsl:value-of select="Type"/></td>
                             <td><xsl:value-of select="Login"/></td>
                             <td><xsl:value-of select="Name"/></td>
+                            <td>
+                                <xsl:choose>
+                                    <xsl:when test="Phone">
+                                        <xsl:value-of select="Phone"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>N/A</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </td>
+                            <td>
+                                <xsl:choose>
+                                    <xsl:when test="Email">
+                                        <xsl:value-of select="Email"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>N/A</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </td>
                         </tr>
                     </xsl:for-each>
                 </table>

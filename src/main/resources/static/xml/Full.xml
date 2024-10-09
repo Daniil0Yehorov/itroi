@@ -44,6 +44,7 @@
             <Login>DAnchik232</Login>
             <Password>BBeight23Ada</Password>
             <Name>Joe</Name>
+            <Phone>+12-345-678901</Phone>
         </User>
         <User>
             <ID>2</ID>
@@ -51,6 +52,7 @@
             <Login>AK232AKdadk2AD</Login>
             <Password>aldkakdLKADKL23</Password>
             <Name>Malfrey</Name>
+            <Email>malfrey@example.com</Email>
         </User>
     </Users>
 
