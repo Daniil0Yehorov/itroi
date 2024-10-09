@@ -11,7 +11,7 @@ public class XMLController {
 
 
     @GetMapping("/xml/Full.xml")
-    public ResponseEntity<ClassPathResource> getanotherXml() throws IOException {
+    public ResponseEntity<ClassPathResource> getXml() throws IOException {
         ClassPathResource xmlFile = new ClassPathResource("src/main/resources/static/xml/Full.xml");
         return ResponseEntity.ok()
                 .header("Content-Type", "application/xml")

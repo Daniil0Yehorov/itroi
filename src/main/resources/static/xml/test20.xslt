@@ -18,7 +18,7 @@
             <body>
                 <h1>Store Data</h1>
 
-                <!-- Products Section -->
+                <!--Products-->
                 <h2>Products</h2>
                 <table>
                     <tr>
@@ -41,7 +41,7 @@
                     </xsl:for-each>
                 </table>
 
-                <!-- Carts Section -->
+                <!-- Carts-->
                 <h2>Carts</h2>
                 <table>
                     <tr>
@@ -65,7 +65,7 @@
                     </xsl:for-each>
                 </table>
 
-                <!-- Users Section -->
+                <!-- Users -->
                 <h2>Users</h2>
                 <table>
                     <tr>

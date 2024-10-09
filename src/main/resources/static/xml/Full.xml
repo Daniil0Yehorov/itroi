@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="test20.xslt"?>
 <StoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Full.xsd">
 
-    <!-- Раздел Products -->
+    <!--Products -->
     <Products>
         <Product>
             <ID>1</ID>
@@ -32,7 +32,7 @@
                 <ProductID>2</ProductID>
             </Products>
             <TotalAmount>130.00</TotalAmount>
-            <!-- Потім додам адрес  -->
+            <!-- може  адрес ще додати потім  -->
         </Cart>
     </Carts>
 
