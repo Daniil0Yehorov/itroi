@@ -25,7 +25,7 @@ public class DOMParser {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(new File(xmlFilePath));
 
-            // Парсим Products
+            // Парсимо Products
             NodeList productNodes = doc.getElementsByTagName("Product");
             Products products = new Products();
             List<Product> productList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class DOMParser {
             products.setProductList(productList);
             storeData.setProducts(products);
 
-            // Парсим Carts
+            // Парсимо Carts
             NodeList cartNodes = doc.getElementsByTagName("Cart");
             Carts carts = new Carts();
             List<Cart> cartList = new ArrayList<>();
@@ -97,7 +97,7 @@ public class DOMParser {
             carts.setCartList(cartList);
             storeData.setCarts(carts);
 
-            // Парсим Users
+            // Парсимо Users
             NodeList userNodes = doc.getElementsByTagName("User");
             Users users = new Users();
             List<User> userList = new ArrayList<>();
@@ -167,7 +167,7 @@ public class DOMParser {
             }
             storeElement.appendChild(productsElement);
 
-            // Запись корзин
+            // Запис кошику
             Element cartsElement = doc.createElement("Carts");
             for (Cart cart : storeData.getCarts().getCartList()) {
                 Element cartElement = doc.createElement("Cart");
@@ -184,7 +184,7 @@ public class DOMParser {
             }
             storeElement.appendChild(cartsElement);
 
-            // Запись пользователей
+            // Запис користувачів
             Element usersElement = doc.createElement("Users");
             for (User user : storeData.getUsers().getUserList()) {
                 Element userElement = doc.createElement("User");
@@ -201,7 +201,7 @@ public class DOMParser {
             }
             storeElement.appendChild(usersElement);
 
-            // Сохранение документа
+            // сейв
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
