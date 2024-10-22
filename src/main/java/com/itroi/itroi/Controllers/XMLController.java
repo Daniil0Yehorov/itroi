@@ -1,4 +1,4 @@
-package Controllers;
+package com.itroi.itroi.Controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

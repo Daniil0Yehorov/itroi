@@ -1,0 +1,28 @@
+<Carts>
+    <Cart>
+        <ID>1</ID>
+        <UserID>1</UserID>
+        <Products>
+            <ProductID>1</ProductID>
+            <ProductID>2</ProductID>
+        </Products>
+        <TotalAmount>130.0</TotalAmount>
+    </Cart>
+    <Cart>
+        <ID>2</ID>
+        <UserID>two</UserID> <!-- Невірний тип, має бути число -->
+        <Products>
+            <ProductID>3</ProductID>
+            <ProductID>4</ProductID>
+        </Products>
+        <TotalAmount>eighty</TotalAmount> <!-- Невірний тип, має бути число -->
+    </Cart>
+    <Cart>
+        <ID>3</ID>
+        <!-- Пропущено UserID -->
+        <Products>
+            <ProductID>5</ProductID>
+        </Products>
+        <TotalAmount>90.0</TotalAmount>
+    </Cart>
+</Carts>
