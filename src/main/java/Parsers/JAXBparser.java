@@ -31,6 +31,7 @@ public class JAXBparser {
             unmarshaller.setSchema(schema);
 
             return (StoreData) unmarshaller.unmarshal(new File(xmlFilePath));
+            //Може викинути САКСексепшн коли є помилка с читанням хмл файлу
         } catch (JAXBException | SAXException e) {
             System.err.println("Помилка при демаршалізації XML: " + e.getMessage());
             e.printStackTrace();

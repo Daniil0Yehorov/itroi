@@ -75,7 +75,6 @@ public class SAXParser extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         String value = new String(ch, start, length).trim();
-
         if (value.isEmpty()) {
             return;
         }
@@ -91,19 +90,29 @@ public class SAXParser extends DefaultHandler {
                 }
                 break;
             case "Name":
-                currentProduct.setName(value);
+                if ("Product".equals(currentParentElement)) {
+                    currentProduct.setName(value);
+                }
                 break;
             case "Description":
-                currentProduct.setDescription(value);
+                if ("Product".equals(currentParentElement)) {
+                    currentProduct.setDescription(value);
+                }
                 break;
             case "Price":
-                currentProduct.setPrice(Double.parseDouble(value));
+                if ("Product".equals(currentParentElement)) {
+                    currentProduct.setPrice(Double.parseDouble(value));
+                }
                 break;
             case "Category":
-                currentProduct.setCategory(value);
+                if ("Product".equals(currentParentElement)) {
+                    currentProduct.setCategory(value);
+                }
                 break;
             case "CountInStock":
-                currentProduct.setCountInStock(Integer.parseInt(value));
+                if ("Product".equals(currentParentElement)) {
+                    currentProduct.setCountInStock(Integer.parseInt(value));
+                }
                 break;
             case "UserID":
                 currentCart.setUserID(Integer.parseInt(value));
@@ -130,17 +139,22 @@ public class SAXParser extends DefaultHandler {
                 currentUser.setEmail(value);
                 break;
         }
+
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+
         if ("Product".equals(localName)) {
             products.add(currentProduct);
+            currentProduct = null;
         } else if ("Cart".equals(localName)) {
             currentCart.setProductIDs(productIDs);
             carts.add(currentCart);
+            currentCart = null;
         } else if ("User".equals(localName)) {
             users.add(currentUser);
+            currentUser = null;
         }
 
         currentParentElement = null;
