@@ -3,6 +3,7 @@
 
     <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
+    <!-- Основной шаблон -->
     <xsl:template match="/StoreData">
         <html>
             <head>
@@ -29,7 +30,9 @@
                         <th>Category</th>
                         <th>Count In Stock</th>
                     </tr>
+                    <!-- Сортування за ціною -->
                     <xsl:for-each select="Products/Product">
+                        <xsl:sort select="Price" order="ascending"/>
                         <tr>
                             <td><xsl:value-of select="ID"/></td>
                             <td><xsl:value-of select="Name"/></td>
@@ -55,8 +58,9 @@
                             <td><xsl:value-of select="ID"/></td>
                             <td><xsl:value-of select="UserID"/></td>
                             <td>
+                                <!-- Нумерації продуктів у кошику -->
                                 <xsl:for-each select="Products/ProductID">
-                                    <xsl:value-of select="."/>
+                                    <xsl:number value="position()"/>: <xsl:value-of select="."/>
                                     <xsl:if test="position() != last()">, </xsl:if>
                                 </xsl:for-each>
                             </td>
@@ -105,7 +109,6 @@
                         </tr>
                     </xsl:for-each>
                 </table>
-
             </body>
         </html>
     </xsl:template>

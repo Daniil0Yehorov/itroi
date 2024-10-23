@@ -153,7 +153,7 @@ public class DOMParser {
             Element storeElement = doc.createElement("StoreData");
             doc.appendChild(storeElement);
 
-            // Запись продуктов
+            // Запис продуктів
             Element productsElement = doc.createElement("Products");
             for (Product product : storeData.getProducts().getProductList()) {
                 Element productElement = doc.createElement("Product");
@@ -221,7 +221,7 @@ public class DOMParser {
     public static void main(String[] args) {
         //with normal data
         DOMParser domParser = new DOMParser("C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xml");
-
+        System.out.println("--== DOM Parser ==--");
         StoreData storeData = domParser.demarshal();
 
         // check fast
@@ -229,15 +229,13 @@ public class DOMParser {
             System.out.println("Product Name: " + product.getName());
         }
 
-        // save to new xml
         domParser.marshal(storeData, "outputDOM.xml");
 
         //with invalid data
         DOMParser domParser1 = new DOMParser("C:/Users/Даниил/Рабочий стол/itroi/invalid_storeData.xml");
 
         StoreData storeData1 = domParser1.demarshal();
-
-        // save to new xml
+        //не спрацює через інвалідний файл
         domParser.marshal(storeData1, "outputDOM1.xml");
     }
 }

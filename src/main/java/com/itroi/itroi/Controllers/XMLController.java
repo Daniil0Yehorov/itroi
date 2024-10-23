@@ -12,7 +12,7 @@ public class XMLController {
 
     @GetMapping("/xml/Full.xml")
     public ResponseEntity<ClassPathResource> getXml() throws IOException {
-        ClassPathResource xmlFile = new ClassPathResource("src/main/resources/static/xml/Full.xml");
+        ClassPathResource xmlFile = new ClassPathResource("static/xml/Full.xml");
         return ResponseEntity.ok()
                 .header("Content-Type", "application/xml")
                 .body(xmlFile);

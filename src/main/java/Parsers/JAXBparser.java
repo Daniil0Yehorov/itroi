@@ -12,7 +12,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 
-//JAXB Parser with Validation
+
 public class JAXBparser {
     private final String xsdPath;
 
@@ -53,14 +53,12 @@ public class JAXBparser {
         // with normal data
         String xmlFilePath = "C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xml";
         String xsdPath = "C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xsd";
-
+        System.out.println("--== JAXB Parser ==--");
         String outputXmlFilePath = "outputJAXB.xml";
 
-        // Parse XML with JAXB
         JAXBparser jaxBparser = new JAXBparser(xsdPath);
         StoreData storeData = jaxBparser.demarshal(xmlFilePath);
 
-        // Marshal to a new XML file
         jaxBparser.marshal(storeData, outputXmlFilePath);
 
         // with invalid Data
