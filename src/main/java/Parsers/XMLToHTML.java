@@ -17,7 +17,6 @@ public class XMLToHTML {
             validateXMLSchema("C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xsd", xmlFile);
 
             transformXMLToHTML(xmlFile, xsltFile, outputHtmlFile);
-            System.out.println("Трансформация завершена. Результат в файле: " + outputHtmlFile);
 
         } catch (Exception e) {
             e.printStackTrace();
