@@ -1,6 +1,7 @@
 package Model;
 
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class Cart {
         this.UserID = userID;
     }
 
-    @XmlElement(name = "ProductID")
+    @XmlElementWrapper(name = "ProductIDs")  // "обертка для списку айдішок"
+    @XmlElement(name = "ProductID")  // елемент списку
     public List<Integer> getProductIDs() {
         return ProductIDs;
     }

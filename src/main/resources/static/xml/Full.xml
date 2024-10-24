@@ -27,10 +27,10 @@
         <Cart>
             <ID>1</ID>
             <UserID>1</UserID>
-            <Products>
+            <ProductIDs>
                 <ProductID>1</ProductID>
                 <ProductID>2</ProductID>
-            </Products>
+            </ProductIDs>
             <TotalAmount>130.00</TotalAmount>
         </Cart>
     </Carts>

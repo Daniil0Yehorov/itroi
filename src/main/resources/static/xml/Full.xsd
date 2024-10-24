@@ -60,7 +60,7 @@
         <xs:sequence>
             <xs:element name="ID" type="xs:integer" minOccurs="1"/>
             <xs:element name="UserID" type="xs:integer" minOccurs="1"/>
-            <xs:element name="Products">
+            <xs:element name="ProductIDs">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="ProductID" type="xs:integer" maxOccurs="unbounded"/>

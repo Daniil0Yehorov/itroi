@@ -80,12 +80,17 @@ public class DOMParser {
                     cart.setUserID(Integer.parseInt(userIdNodes.item(0).getTextContent()));
                 }
 
-                NodeList productIdNodes = cartElement.getElementsByTagName("ProductID");
-                List<Integer> productIDs = new ArrayList<>();
-                for (int j = 0; j < productIdNodes.getLength(); j++) {
-                    productIDs.add(Integer.parseInt(productIdNodes.item(j).getTextContent()));
+                // Обработка списку айдішок продукту
+                NodeList productIdsWrapper = cartElement.getElementsByTagName("ProductIDs");
+                if (productIdsWrapper.getLength() > 0) {
+                    Element productIdsElement = (Element) productIdsWrapper.item(0);
+                    NodeList productIdNodes = productIdsElement.getElementsByTagName("ProductID");
+                    List<Integer> productIDs = new ArrayList<>();
+                    for (int j = 0; j < productIdNodes.getLength(); j++) {
+                        productIDs.add(Integer.parseInt(productIdNodes.item(j).getTextContent()));
+                    }
+                    cart.setProductIDs(productIDs);
                 }
-                cart.setProductIDs(productIDs);
 
                 NodeList totalAmountNodes = cartElement.getElementsByTagName("TotalAmount");
                 if (totalAmountNodes.getLength() > 0) {
@@ -174,11 +179,11 @@ public class DOMParser {
                 cartElement.appendChild(createElement(doc, "ID", String.valueOf(cart.getID())));
                 cartElement.appendChild(createElement(doc, "UserID", String.valueOf(cart.getUserID())));
 
-                Element productsElementCart = doc.createElement("Products");
+                Element productIDsElement = doc.createElement("ProductIDs");
                 for (Integer productID : cart.getProductIDs()) {
-                    productsElementCart.appendChild(createElement(doc, "ProductID", String.valueOf(productID)));
+                    productIDsElement.appendChild(createElement(doc, "ProductID", String.valueOf(productID)));
                 }
-                cartElement.appendChild(productsElementCart);
+                cartElement.appendChild(productIDsElement);
                 cartElement.appendChild(createElement(doc, "TotalAmount", String.valueOf(cart.getTotalAmount())));
                 cartsElement.appendChild(cartElement);
             }
@@ -201,12 +206,13 @@ public class DOMParser {
             }
             storeElement.appendChild(usersElement);
 
-            // сейв
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(outputPath));
-            transformer.transform(source, result);
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource domSource = new DOMSource(doc);
+            StreamResult streamResult = new StreamResult(new File(outputPath));
+
+            transformer.transform(domSource, streamResult);
 
         } catch (Exception e) {
             e.printStackTrace();

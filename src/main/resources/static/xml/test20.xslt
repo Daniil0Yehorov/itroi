@@ -48,19 +48,15 @@
                 <h2>Carts</h2>
                 <table>
                     <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Product IDs</th>
-                        <th>Total Amount</th>
+                        <th>ID</th><th>User ID</th><th>Product IDs</th><th>Total Amount</th>
                     </tr>
                     <xsl:for-each select="Carts/Cart">
                         <tr>
                             <td><xsl:value-of select="ID"/></td>
                             <td><xsl:value-of select="UserID"/></td>
                             <td>
-                                <!-- Нумерації продуктів у кошику -->
-                                <xsl:for-each select="Products/ProductID">
-                                    <xsl:number value="position()"/>: <xsl:value-of select="."/>
+                                <xsl:for-each select="ProductIDs/ProductID">
+                                    <xsl:value-of select="concat(position(), ': ', .)"/>
                                     <xsl:if test="position() != last()">, </xsl:if>
                                 </xsl:for-each>
                             </td>

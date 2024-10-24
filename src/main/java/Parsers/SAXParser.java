@@ -56,19 +56,35 @@ public class SAXParser extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentElement = localName;
 
-        if ("Products".equals(currentElement)) {
-            products = new ArrayList<>();
-        } else if ("Product".equals(currentElement)) {
-            currentProduct = new Product();
-        } else if ("Carts".equals(currentElement)) {
-            carts = new ArrayList<>();
-        } else if ("Cart".equals(currentElement)) {
-            currentCart = new Cart();
-            productIDs = new ArrayList<>();
-        } else if ("Users".equals(currentElement)) {
-            users = new ArrayList<>();
-        } else if ("User".equals(currentElement)) {
-            currentUser = new User();
+        switch (currentElement) {
+            case "Products":
+                products = new ArrayList<>();
+                currentParentElement = "Products";
+                break;
+            case "Product":
+                currentProduct = new Product();
+                currentParentElement = "Product";
+                break;
+            case "Carts":
+                carts = new ArrayList<>();
+                currentParentElement = "Carts";
+                break;
+            case "Cart":
+                currentCart = new Cart();
+                productIDs = new ArrayList<>();
+                currentParentElement = "Cart";
+                break;
+            case "Users":
+                users = new ArrayList<>();
+                currentParentElement = "Users";
+                break;
+            case "User":
+                currentUser = new User();
+                currentParentElement = "User";
+                break;
+            case "ProductIDs":
+                // просто ініціалізуємо productIDs що він є,а він вже ініціалізується під час створення Cart
+                break;
         }
     }
 
@@ -139,24 +155,30 @@ public class SAXParser extends DefaultHandler {
                 currentUser.setEmail(value);
                 break;
         }
-
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-
-        if ("Product".equals(localName)) {
-            products.add(currentProduct);
-            currentProduct = null;
-        } else if ("Cart".equals(localName)) {
-            currentCart.setProductIDs(productIDs);
-            carts.add(currentCart);
-            currentCart = null;
-        } else if ("User".equals(localName)) {
-            users.add(currentUser);
-            currentUser = null;
+        switch (localName) {
+            case "Product":
+                products.add(currentProduct);
+                currentProduct = null;
+                break;
+            case "Cart":
+                currentCart.setProductIDs(productIDs); //  список ProductIDs в Cart
+                carts.add(currentCart);
+                currentCart = null;
+                productIDs = null; // сброс productIDs для наступного кошику
+                break;
+            case "User":
+                users.add(currentUser);
+                currentUser = null;
+                break;
+            case "ProductIDs":
+                // Просто завершаем обработку элемента, ничего не требуется
+                break;
         }
-
+        currentElement = null;
         currentParentElement = null;
     }
 
