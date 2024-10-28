@@ -1,9 +1,10 @@
 package com.itroi.itroi.ServiceInterfaces;
 
 import com.itroi.itroi.Model.Product;
+import jakarta.jws.WebService;
 
 import java.util.List;
-
+@WebService(targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
 public interface ProductService {
 
     /**

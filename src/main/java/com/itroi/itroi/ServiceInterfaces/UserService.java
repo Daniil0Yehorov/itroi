@@ -1,7 +1,9 @@
 package com.itroi.itroi.ServiceInterfaces;
 
 import com.itroi.itroi.Model.User;
+import jakarta.jws.WebService;
 
+@WebService(targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
 public interface UserService {
 
     /**

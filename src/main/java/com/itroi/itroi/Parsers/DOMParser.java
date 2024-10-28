@@ -1,7 +1,6 @@
 package com.itroi.itroi.Parsers;
 
 import  com.itroi.itroi.Model.*;
-import com.itroi.itroi.Model.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
