@@ -1,8 +1,8 @@
-package Parsers;
+package com.itroi.itroi.Parsers;
 
-import Model.Cart;
-import Model.Product;
-import Model.User;
+import com.itroi.itroi.Model.Cart;
+import com.itroi.itroi.Model.Product;
+import com.itroi.itroi.Model.User;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

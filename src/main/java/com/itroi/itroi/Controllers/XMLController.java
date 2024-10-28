@@ -9,7 +9,7 @@ import java.io.IOException;
 @RestController
 public class XMLController {
 
-
+//will delete later
     @GetMapping("/xml/Full.xml")
     public ResponseEntity<ClassPathResource> getXml() throws IOException {
         ClassPathResource xmlFile = new ClassPathResource("static/xml/Full.xml");

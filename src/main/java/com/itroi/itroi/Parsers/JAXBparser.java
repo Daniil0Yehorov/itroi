@@ -1,6 +1,6 @@
-package Parsers;
+package com.itroi.itroi.Parsers;
 
-import Model.StoreData;
+import com.itroi.itroi.Model.StoreData;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

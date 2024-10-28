@@ -1,4 +1,4 @@
-package Model;
+package com.itroi.itroi.Model;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
