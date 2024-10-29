@@ -52,9 +52,9 @@ public class Cart {
 
     public Cart(int ID, int userID, List<Integer> productIDs, double totalAmount) {
         this.ID = ID;
-        UserID = userID;
-        ProductIDs = productIDs;
-        TotalAmount = totalAmount;
+        this.UserID = userID;
+        this.ProductIDs = productIDs;
+        this.TotalAmount = totalAmount;
     }
     public Cart(){}
 }

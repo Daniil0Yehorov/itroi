@@ -38,11 +38,11 @@ public class Product {
 
     public Product(int ID, String name, String description, double price, String category, int countInStock) {
         this.ID = ID;
-        Name = name;
-        Description = description;
-        Price = price;
-        Category = category;
-        CountInStock = countInStock;
+        this.Name = name;
+        this.Description = description;
+        this.Price = price;
+        this.Category = category;
+        this.CountInStock = countInStock;
     }
     public Product(){}
 }

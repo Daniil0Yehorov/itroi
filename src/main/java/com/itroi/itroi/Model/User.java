@@ -44,12 +44,12 @@ public class User {
 
     public User(int ID, String type, String login, String password, String name, String phone, String email) {
         this.ID = ID;
-        Type = type;
-        Login = login;
-        Password = password;
-        Name = name;
-        Phone = phone;
-        Email = email;
+        this.Type = type;
+        this.Login = login;
+        this.Password = password;
+        this.Name = name;
+        this.Phone = phone;
+        this.Email = email;
     }
     public User() {}
 }
