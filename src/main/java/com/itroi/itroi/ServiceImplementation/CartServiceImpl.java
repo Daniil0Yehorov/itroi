@@ -1,7 +1,9 @@
 package com.itroi.itroi.ServiceImplementation;
 
 import com.itroi.itroi.Model.Cart;
+import com.itroi.itroi.Model.Product;
 import com.itroi.itroi.ServiceInterfaces.CartService;
+import com.itroi.itroi.ServiceInterfaces.ProductService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
@@ -13,20 +15,28 @@ import java.util.Map;
 @WebService(endpointInterface = "com.itroi.itroi.ServiceInterfaces.CartService")
 public class CartServiceImpl implements CartService {
     private final Map<Integer, Cart> cartDatabase = new HashMap<>();
+    private final ProductService productService;
 
+    public CartServiceImpl(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Override
-    public void addProductToCart(int userId, int productId, int quantity) {
+    public void addProductToCart(int userId, int productId) {
         Cart cart = cartDatabase.getOrDefault(userId, new Cart());
         cart.setUserID(userId);
+
         List<Integer> productIDs = cart.getProductIDs() != null ? cart.getProductIDs() : new ArrayList<>();
 
-        for (int i = 0; i < quantity; i++) {
-            productIDs.add(productId);
+        if (productIDs.contains(productId)) {
+            System.out.println("Продукт вже в кошику.");
+            return;
         }
 
+        productIDs.add(productId);
         cart.setProductIDs(productIDs);
         cartDatabase.put(userId, cart);
+
         updateTotalAmount(cart);
     }
 
@@ -70,11 +80,25 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void updateOrderStatus(int cartId, String status) {
+    public void updateCartStatus(int cartId, String status) {
         // later
     }
 
     private void updateTotalAmount(Cart cart) {
-        //later
+        //no chance to get Productprice
+        double totalAmount = 0.0;
+
+        List<Integer> productIDs = cart.getProductIDs();
+        if (productIDs != null) {
+            for (Integer productId : productIDs) {
+                Product product = productService.getProductById(productId);
+                if (product != null) {
+                    totalAmount += product.getPrice();
+                }
+            }
+        }
+
+        cart.setTotalAmount(totalAmount);
+        System.out.println("Общая сумма корзины обновлена на: " + totalAmount);
     }
-}
+    }

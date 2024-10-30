@@ -12,10 +12,9 @@ public interface CartService {
      * Додавання продукту в корзину користувача.
      * @param userId ідентифікатор користувача
      * @param productId ідентифікатор продукту
-     * @param quantity кількість продукту для додавання
      */
     @WebMethod
-    void addProductToCart(int userId, int productId, int quantity);
+    void addProductToCart(int userId, int productId);
 
     /**
      * Отримання поточного стану корзини користувача.
@@ -61,6 +60,6 @@ public interface CartService {
      * @param status новий статус замовлення
      */
     @WebMethod
-    void updateOrderStatus(int cartId, String status);
+    void updateCartStatus(int cartId, String status);
 
 }

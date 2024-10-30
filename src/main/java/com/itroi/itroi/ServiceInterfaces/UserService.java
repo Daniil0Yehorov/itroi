@@ -32,4 +32,11 @@ public interface UserService {
      * @param userId ідентифікатор користувача
      */
     void deleteUser(int userId);
+    /**
+     * Отримання користувача за паролем та логіном задля авторизації.
+     * @param password пароль користувача
+     * @param login логін користувача
+     */
+    User getUserforAuth(String password, String login);
+
 }

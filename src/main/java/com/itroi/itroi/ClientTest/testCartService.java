@@ -21,7 +21,7 @@ public class testCartService {
             Cart retrievedCart = cartService.getCart(1);
             System.out.println("Отриманий кошик: " + retrievedCart);
 
-            cartService.addProductToCart(1, 101, 2);
+            cartService.addProductToCart(1, 101);
             System.out.println("Продукт 101 додано до кошика користувача 1.");
 
             cartService.removeProductFromCart(1, 101);
@@ -30,7 +30,7 @@ public class testCartService {
             retrievedCart = cartService.getCart(1);
             System.out.println("Оновлений кошик: " + retrievedCart);
 
-            cartService.checkout(1); // userId = 1
+            cartService.checkout(1);
             System.out.println("Замовлення для користувача 1 завершено.");
 
         } catch (Exception e) {

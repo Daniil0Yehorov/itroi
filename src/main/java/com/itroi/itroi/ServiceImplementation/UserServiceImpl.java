@@ -36,4 +36,14 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int userId) {
         userDatabase.remove(userId);
     }
+    @WebMethod
+    @Override
+    public User getUserforAuth(String password,String login){
+        for (User user : userDatabase.values()) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;//no user
+    }
 }

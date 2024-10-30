@@ -21,10 +21,20 @@ public class ItroiApplication {
 	@Bean
 	public CommandLineRunner publishWebService() {
 		return args -> {
+			/*
 			Endpoint.publish("http://localhost:8081/ws/carts?wsdl", new CartServiceImpl());
 			Endpoint.publish("http://localhost:8081/ws/products?wsdl", new ProductServiceImpl());
 			Endpoint.publish("http://localhost:8081/ws/users?wsdl", new UserServiceImpl());
-			System.out.println("SOAP Web Services is running...");
+			System.out.println("SOAP Web Services is running...");*/
+
+            ProductServiceImpl productService = new ProductServiceImpl();
+            CartServiceImpl cartService = new CartServiceImpl(productService);
+
+            Endpoint.publish("http://localhost:8081/ws/carts?wsdl", cartService);
+            Endpoint.publish("http://localhost:8081/ws/products?wsdl", productService);
+            Endpoint.publish("http://localhost:8081/ws/users?wsdl", new UserServiceImpl());
+            System.out.println("SOAP Web Services is running...");
+
 		};
 	}
 }
