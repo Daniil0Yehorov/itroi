@@ -28,6 +28,15 @@ public class ProductServiceImpl implements ProductService {
         }
         return product;
     }
+    @Override
+    public int generateUniqueProductId() {
+        int productId = 1;
+
+        while (productDatabase.containsKey(productId)) {
+            productId++;
+        }
+        return productId;
+    }
 
     @Override
     public Product addProduct(Product product)throws ClientFaultException {

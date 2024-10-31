@@ -26,6 +26,15 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+    @Override
+    public  int generateUniqueUserId() {
+        int userId = 1;
+        while (userDatabase.containsKey(userId)) {
+            userId++;
+        }
+        return userId;
+
+    }
 
     @Override
     public void updateUser(int userId, User user) throws ClientFaultException {

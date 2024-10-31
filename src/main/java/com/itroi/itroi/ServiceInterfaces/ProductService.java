@@ -55,4 +55,10 @@ public interface ProductService {
      */
     @WebMethod
     void deleteProduct(int productId)throws ClientFaultException;
+    /**
+     * генерація ключа для продукту
+     */
+    @WebMethod
+     int generateUniqueProductId();
+
 }

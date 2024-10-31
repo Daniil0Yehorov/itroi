@@ -50,5 +50,10 @@ public interface UserService {
      */
     @WebMethod
     User getUserforAuth(String password, String login)throws ClientFaultException;
+    /**
+     * генерація унікального ключа для користувача
+     */
+    @WebMethod
+    int generateUniqueUserId();
 
 }
