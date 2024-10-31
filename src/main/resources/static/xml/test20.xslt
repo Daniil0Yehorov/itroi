@@ -48,11 +48,10 @@
                 <h2>Carts</h2>
                 <table>
                     <tr>
-                        <th>ID</th><th>User ID</th><th>Product IDs</th><th>Total Amount</th>
+                       <th>User ID</th><th>Product IDs</th><th>Total Amount</th>
                     </tr>
                     <xsl:for-each select="Carts/Cart">
                         <tr>
-                            <td><xsl:value-of select="ID"/></td>
                             <td><xsl:value-of select="UserID"/></td>
                             <td>
                                 <xsl:for-each select="ProductIDs/ProductID">

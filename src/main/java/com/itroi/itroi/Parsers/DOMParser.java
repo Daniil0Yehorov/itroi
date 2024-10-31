@@ -71,10 +71,7 @@ public class DOMParser {
                 Element cartElement = (Element) cartNodes.item(i);
                 Cart cart = new Cart();
 
-                NodeList cartIdNodes = cartElement.getElementsByTagName("ID");
-                if (cartIdNodes.getLength() > 0) {
-                    cart.setID(Integer.parseInt(cartIdNodes.item(0).getTextContent()));
-                }
+                // Убираем ID корзины, используем только UserID
                 NodeList userIdNodes = cartElement.getElementsByTagName("UserID");
                 if (userIdNodes.getLength() > 0) {
                     cart.setUserID(Integer.parseInt(userIdNodes.item(0).getTextContent()));
@@ -176,7 +173,6 @@ public class DOMParser {
             Element cartsElement = doc.createElement("Carts");
             for (Cart cart : storeData.getCarts().getCartList()) {
                 Element cartElement = doc.createElement("Cart");
-                cartElement.appendChild(createElement(doc, "ID", String.valueOf(cart.getID())));
                 cartElement.appendChild(createElement(doc, "UserID", String.valueOf(cart.getUserID())));
 
                 Element productIDsElement = doc.createElement("ProductIDs");

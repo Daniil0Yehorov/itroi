@@ -58,7 +58,6 @@
     <!-- Cart -->
     <xs:complexType name="CartType">
         <xs:sequence>
-            <xs:element name="ID" type="xs:integer" minOccurs="1"/>
             <xs:element name="UserID" type="xs:integer" minOccurs="1"/>
             <xs:element name="ProductIDs">
                 <xs:complexType>

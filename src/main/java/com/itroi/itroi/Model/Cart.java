@@ -7,21 +7,11 @@ import java.util.List;
 
 @XmlRootElement(name = "Cart")
 public class Cart {
-    private int ID;
     private int UserID;
     private List<Integer> ProductIDs;
     private double TotalAmount;
 
     // Getters and Setters
-    @XmlElement(name = "ID")
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     @XmlElement(name = "UserID")
     public int getUserID() {
         return UserID;
@@ -31,8 +21,8 @@ public class Cart {
         this.UserID = userID;
     }
 
-    @XmlElementWrapper(name = "ProductIDs")  // "обертка для списку айдішок"
-    @XmlElement(name = "ProductID")  // елемент списку
+    @XmlElementWrapper(name = "ProductIDs")
+    @XmlElement(name = "ProductID")
     public List<Integer> getProductIDs() {
         return ProductIDs;
     }
@@ -50,11 +40,11 @@ public class Cart {
         this.TotalAmount = totalAmount;
     }
 
-    public Cart(int ID, int userID, List<Integer> productIDs, double totalAmount) {
-        this.ID = ID;
+    public Cart(int userID, List<Integer> productIDs, double totalAmount) {
         this.UserID = userID;
         this.ProductIDs = productIDs;
         this.TotalAmount = totalAmount;
     }
-    public Cart(){}
+
+    public Cart() {}
 }

@@ -18,7 +18,6 @@
         <TotalAmount>eighty</TotalAmount> <!-- Невірний тип, має бути число -->
     </Cart>
     <Cart>
-        <ID>3</ID>
         <!-- Пропущено UserID -->
         <Products>
             <ProductID>5</ProductID>

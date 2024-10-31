@@ -1,49 +1,73 @@
 package com.itroi.itroi.ServiceImplementation;
 
+import com.itroi.itroi.Exception.ClientFaultException;
 import com.itroi.itroi.Model.User;
+import com.itroi.itroi.Model.Cart;
+import com.itroi.itroi.ServiceInterfaces.CartService;
 import com.itroi.itroi.ServiceInterfaces.UserService;
-import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 @WebService(endpointInterface = "com.itroi.itroi.ServiceInterfaces.UserService")
 public class UserServiceImpl implements UserService {
     private final Map<Integer, User> userDatabase = new HashMap<>();
+    private final CartService cartService;
 
-    @WebMethod
-    @Override
-    public User getUserById(int userId) {
-        return userDatabase.get(userId);
-    }
+    public UserServiceImpl(CartService cartService) {this.cartService = cartService;}
 
-    @WebMethod
     @Override
-    public void updateUser(int userId, User user) {
-        userDatabase.put(userId, user);
-    }
-
-    @WebMethod
-    @Override
-    public User createUser(User user) {
-        userDatabase.put(user.getID(), user);
+    public User getUserById(int userId) throws ClientFaultException {
+        User user = userDatabase.get(userId);
+        if (user == null) {
+            throw new ClientFaultException("Користувача з ID " + userId + " не знайдено.");
+        }
         return user;
     }
 
-    @WebMethod
     @Override
-    public void deleteUser(int userId) {
+    public void updateUser(int userId, User user) throws ClientFaultException {
+        if (!userDatabase.containsKey(userId)) {
+            throw new ClientFaultException("Користувача з ID " + userId + " не існує. Оновлення неможливе.");
+        }
+        userDatabase.put(userId, user);
+    }
+
+    @Override
+
+    public void createUser(User user) throws ClientFaultException {
+        if (userDatabase.containsKey(user.getID())) {
+            throw new ClientFaultException("Користувач з ID " + user.getID() + " вже існує. Створення неможливе.");
+        }
+        userDatabase.put(user.getID(), user);
+
+        // При реєстрації користувача,для нього створюється його кошик персоналізований
+        Cart cart = new Cart();
+
+        cart.setUserID(user.getID());
+        cart.setProductIDs(new ArrayList<>());
+        cart.setTotalAmount(0.0);
+
+        cartService.addCart(cart);
+    }
+
+    @Override
+    public void deleteUser(int userId) throws ClientFaultException {
+        if (!userDatabase.containsKey(userId)) {
+            throw new ClientFaultException("Користувача з ID " + userId + " не знайдено. Видалення неможливе.");
+        }
         userDatabase.remove(userId);
     }
-    @WebMethod
+
     @Override
-    public User getUserforAuth(String password,String login){
+    public User getUserforAuth(String password, String login) throws ClientFaultException {
         for (User user : userDatabase.values()) {
             if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
                 return user;
             }
         }
-        return null;//no user
+        throw new ClientFaultException("Неправильний логін або пароль.");
     }
 }

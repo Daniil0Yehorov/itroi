@@ -83,7 +83,7 @@ public class SAXParser extends DefaultHandler {
                 currentParentElement = "User";
                 break;
             case "ProductIDs":
-                // просто ініціалізуємо productIDs що він є,а він вже ініціалізується під час створення Cart
+                // просто ініціалізуємо productIDs що він є
                 break;
         }
     }
@@ -100,7 +100,7 @@ public class SAXParser extends DefaultHandler {
                 if ("Product".equals(currentParentElement)) {
                     currentProduct.setID(Integer.parseInt(value));
                 } else if ("Cart".equals(currentParentElement)) {
-                    currentCart.setID(Integer.parseInt(value));
+                    // Убираем ID корзины
                 } else if ("User".equals(currentParentElement)) {
                     currentUser.setID(Integer.parseInt(value));
                 }
@@ -131,55 +131,69 @@ public class SAXParser extends DefaultHandler {
                 }
                 break;
             case "UserID":
-                currentCart.setUserID(Integer.parseInt(value));
+                if ("Cart".equals(currentParentElement)) {
+                    currentCart.setUserID(Integer.parseInt(value));
+                }
                 break;
             case "ProductID":
-                productIDs.add(Integer.parseInt(value));
+                if ("Cart".equals(currentParentElement)) {
+                    productIDs.add(Integer.parseInt(value));
+                }
                 break;
             case "TotalAmount":
-                currentCart.setTotalAmount(Double.parseDouble(value));
-                break;
-            case "Login":
-                currentUser.setLogin(value);
-                break;
-            case "Password":
-                currentUser.setPassword(value);
+                if ("Cart".equals(currentParentElement)) {
+                    currentCart.setTotalAmount(Double.parseDouble(value));
+                }
                 break;
             case "Type":
-                currentUser.setType(value);
+                if ("User".equals(currentParentElement)) {
+                    currentUser.setType(value);
+                }
+                break;
+            case "Login":
+                if ("User".equals(currentParentElement)) {
+                    currentUser.setLogin(value);
+                }
+                break;
+            case "Password":
+                if ("User".equals(currentParentElement)) {
+                    currentUser.setPassword(value);
+                }
                 break;
             case "Phone":
-                currentUser.setPhone(value);
+                if ("User".equals(currentParentElement)) {
+                    currentUser.setPhone(value);
+                }
                 break;
             case "Email":
-                currentUser.setEmail(value);
+                if ("User".equals(currentParentElement)) {
+                    currentUser.setEmail(value);
+                }
                 break;
         }
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         switch (localName) {
             case "Product":
                 products.add(currentProduct);
-                currentProduct = null;
                 break;
             case "Cart":
-                currentCart.setProductIDs(productIDs); //  список ProductIDs в Cart
+                currentCart.setProductIDs(productIDs);
                 carts.add(currentCart);
-                currentCart = null;
-                productIDs = null; // сброс productIDs для наступного кошику
                 break;
             case "User":
                 users.add(currentUser);
-                currentUser = null;
                 break;
-            case "ProductIDs":
-                // Просто завершаем обработку элемента, ничего не требуется
+            case "Products":
+                break;
+            case "Carts":
+                break;
+            case "Users":
                 break;
         }
-        currentElement = null;
-        currentParentElement = null;
+        currentElement = "";
     }
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
@@ -218,7 +232,6 @@ public class SAXParser extends DefaultHandler {
 
         System.out.println("--== Carts ==--");
         for (Cart cart : carts) {
-            System.out.println("Cart ID: " + cart.getID());
             System.out.println("User ID: " + cart.getUserID());
             System.out.println("Product IDs: " + cart.getProductIDs());
             System.out.println("Total Amount: " + cart.getTotalAmount());

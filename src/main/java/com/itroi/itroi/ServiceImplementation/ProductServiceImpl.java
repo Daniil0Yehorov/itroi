@@ -1,5 +1,6 @@
 package com.itroi.itroi.ServiceImplementation;
 
+import com.itroi.itroi.Exception.ClientFaultException;
 import com.itroi.itroi.Model.Product;
 import com.itroi.itroi.ServiceInterfaces.ProductService;
 import jakarta.jws.WebMethod;
@@ -14,34 +15,43 @@ import java.util.Map;
 public class ProductServiceImpl implements ProductService {
     private final Map<Integer, Product> productDatabase = new HashMap<>();
 
-    @WebMethod
     @Override
     public List<Product> getAllProducts() {
         return new ArrayList<>(productDatabase.values());
     }
 
-    @WebMethod
     @Override
-    public Product getProductById(int productId) {
-        return productDatabase.get(productId);
+    public Product getProductById(int productId)throws ClientFaultException {
+        Product product = productDatabase.get(productId);
+        if (product == null) {
+            throw new ClientFaultException("Продукт з ID " + productId + " не знайдено.");
+        }
+        return product;
     }
 
-    @WebMethod
     @Override
-    public Product addProduct(Product product) {
+    public Product addProduct(Product product)throws ClientFaultException {
+        if (productDatabase.containsKey(product.getID())) {
+            throw new ClientFaultException("Продукт з ID " + product.getID() + " вже існує. Додавання неможливе.");
+        }
         productDatabase.put(product.getID(), product);
         return product;
     }
 
-    @WebMethod
     @Override
-    public void updateProduct(Product product) {
+    public void updateProduct(Product product)throws ClientFaultException {
+
+        if (!productDatabase.containsKey(product.getID())) {
+            throw new ClientFaultException("Продукт з ID " + product.getID() + " не знайдено. Оновлення неможливе.");
+        }
         productDatabase.put(product.getID(), product);
     }
 
-    @WebMethod
     @Override
-    public void deleteProduct(int productId) {
+    public void deleteProduct(int productId) throws ClientFaultException {
+        if (!productDatabase.containsKey(productId)) {
+            throw new ClientFaultException("Продукт з ID " + productId + " не знайдено. Видалення неможливе.");
+        }
         productDatabase.remove(productId);
     }
 }
