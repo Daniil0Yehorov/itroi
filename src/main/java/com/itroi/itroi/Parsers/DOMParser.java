@@ -94,6 +94,11 @@ public class DOMParser {
                     cart.setTotalAmount(Double.parseDouble(totalAmountNodes.item(0).getTextContent()));
                 }
 
+                NodeList statusNodes = cartElement.getElementsByTagName("status");
+                if (statusNodes.getLength() > 0) {
+                    cart.setStatus(statusNodes.item(0).getTextContent());
+                }
+
                 cartList.add(cart);
             }
             carts.setCartList(cartList);
@@ -181,6 +186,7 @@ public class DOMParser {
                 }
                 cartElement.appendChild(productIDsElement);
                 cartElement.appendChild(createElement(doc, "TotalAmount", String.valueOf(cart.getTotalAmount())));
+                cartElement.appendChild(createElement(doc, "status", cart.getStatus()));
                 cartsElement.appendChild(cartElement);
             }
             storeElement.appendChild(cartsElement);

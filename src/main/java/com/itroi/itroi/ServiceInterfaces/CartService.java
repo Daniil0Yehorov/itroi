@@ -44,11 +44,12 @@ public interface CartService {
     void removeProductFromCart(int userId, int productId)throws ClientFaultException;
 
     /**
-     * Завершення і підтвердження замовлення.
+     * Завершення і підтвердження замовлення(кошика)
+     * @return повертатиме повний об'єкт кошика.
      * @param userId ідентифікатор користувача
      */
     @WebMethod
-    void checkout(int userId);
+    Cart checkout(int userId);
 
     /**
      * Отримання всіх замовлень користувачів.
@@ -64,13 +65,4 @@ public interface CartService {
      */
     @WebMethod
     Cart getCartById(int userId);
-
-    /**
-     * Оновлення статусу замовлення (наприклад, "В обробці", "Доставлене").
-     * @param userId ідентифікатор кошику або користувача
-     * @param status новий статус кошику
-     */
-    @WebMethod
-    void updateCartStatus(int userId, String status);
-
 }

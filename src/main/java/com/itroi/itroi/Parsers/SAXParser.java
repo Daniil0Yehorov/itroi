@@ -145,6 +145,11 @@ public class SAXParser extends DefaultHandler {
                     currentCart.setTotalAmount(Double.parseDouble(value));
                 }
                 break;
+            case "status":
+                if ("Cart".equals(currentParentElement)) {
+                    currentCart.setStatus(value);
+                }
+                break;
             case "Type":
                 if ("User".equals(currentParentElement)) {
                     currentUser.setType(value);
@@ -235,6 +240,7 @@ public class SAXParser extends DefaultHandler {
             System.out.println("User ID: " + cart.getUserID());
             System.out.println("Product IDs: " + cart.getProductIDs());
             System.out.println("Total Amount: " + cart.getTotalAmount());
+            System.out.println("Status: " + cart.getStatus());
             System.out.println("----------------------------");
         }
     }

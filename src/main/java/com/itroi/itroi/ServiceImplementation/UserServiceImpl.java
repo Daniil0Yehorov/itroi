@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
         cart.setUserID(user.getID());
         cart.setProductIDs(new ArrayList<>());
         cart.setTotalAmount(0.0);
+        cart.setStatus("Не оформлений кошик");
 
         cartService.addCart(cart);
     }

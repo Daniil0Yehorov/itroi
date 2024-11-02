@@ -86,9 +86,11 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void checkout(int userId)  {
-        //later functional
-        //need to add new atribute status for cart
+    public Cart checkout(int userId)  {
+        Cart currentcart=cartDatabase.get(userId);
+        currentcart.setStatus("Оформленний кошик");
+
+        return currentcart;
     }
 
 
@@ -100,12 +102,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCartById(int cartId) {
         return cartDatabase.get(cartId);
-    }
-
-
-    @Override
-    public void updateCartStatus(int cartId, String status) {
-        // later
     }
 
     private void updateTotalAmount(Cart cart) throws ClientFaultException {
@@ -123,4 +119,4 @@ public class CartServiceImpl implements CartService {
         cart.setTotalAmount(totalAmount);
         System.out.println("Загальна сума кошику оновлена на: " + totalAmount);
     }
-    }
+}
