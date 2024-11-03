@@ -4,7 +4,7 @@
     <!-- Product -->
     <xs:complexType name="Product">
         <xs:sequence>
-            <xs:element name="ID" type="xs:integer" minOccurs="1"/>
+            <xs:element name="ID" type="xs:int" minOccurs="1"/>
             <xs:element name="Name">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -22,9 +22,8 @@
             </xs:element>
             <xs:element name="Price">
                 <xs:simpleType>
-                    <xs:restriction base="xs:decimal">
+                    <xs:restriction base="xs:double">
                         <xs:minInclusive value="0.0"/>
-                        <xs:fractionDigits value="2"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
@@ -38,7 +37,7 @@
             </xs:element>
             <xs:element name="CountInStock">
                 <xs:simpleType>
-                    <xs:restriction base="xs:integer">
+                    <xs:restriction base="xs:int">
                         <xs:minInclusive value="0"/>
                     </xs:restriction>
                 </xs:simpleType>
@@ -56,21 +55,20 @@
     </xs:element>
 
     <!-- Cart -->
-    <xs:complexType name="CartType">
+    <xs:complexType name="Cart">
         <xs:sequence>
-            <xs:element name="UserID" type="xs:integer" minOccurs="1"/>
+            <xs:element name="UserID" type="xs:int" minOccurs="1"/>
             <xs:element name="ProductIDs">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="ProductID" type="xs:integer" maxOccurs="unbounded"/>
+                        <xs:element name="ProductID" type="xs:int" maxOccurs="unbounded"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
             <xs:element name="TotalAmount">
                 <xs:simpleType>
-                    <xs:restriction base="xs:decimal">
+                    <xs:restriction base="xs:double">
                         <xs:minInclusive value="0.0"/>
-                        <xs:fractionDigits value="2"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
@@ -89,15 +87,15 @@
     <xs:element name="Carts">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Cart" maxOccurs="unbounded" type="CartType"/>
+                <xs:element name="Cart" maxOccurs="unbounded" type="Cart"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <!-- User -->
-    <xs:complexType name="UserType">
+    <xs:complexType name="User">
         <xs:sequence>
-            <xs:element name="ID" type="xs:integer" minOccurs="1"/>
+            <xs:element name="ID" type="xs:int" minOccurs="1"/>
             <xs:element name="Type">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -139,7 +137,7 @@
     <xs:element name="Users">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="User" maxOccurs="unbounded" type="UserType"/>
+                <xs:element name="User" maxOccurs="unbounded" type="User"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

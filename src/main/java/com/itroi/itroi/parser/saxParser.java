@@ -1,6 +1,6 @@
-package com.itroi.itroi.Parsers;
+package com.itroi.itroi.parser;
 
-import com.itroi.itroi.Model.*;
+import com.itroi.itroi.generated_models.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SAXParser extends DefaultHandler {
+public class saxParser extends DefaultHandler {
     private String currentElement;
     private List<Product> products;
     private List<Cart> carts;
@@ -26,7 +26,7 @@ public class SAXParser extends DefaultHandler {
     private Product currentProduct;
     private Cart currentCart;
     private User currentUser;
-    private List<Integer> productIDs;
+    private Cart.ProductIDs productIDs;
 
     private String currentParentElement;
 
@@ -69,7 +69,7 @@ public class SAXParser extends DefaultHandler {
                 break;
             case "Cart":
                 currentCart = new Cart();
-                productIDs = new ArrayList<>();
+                productIDs = new Cart.ProductIDs();
                 currentParentElement = "Cart";
                 break;
             case "Users":
@@ -79,9 +79,6 @@ public class SAXParser extends DefaultHandler {
             case "User":
                 currentUser = new User();
                 currentParentElement = "User";
-                break;
-            case "ProductIDs":
-                // просто ініціалізуємо productIDs що він є
                 break;
         }
     }
@@ -135,8 +132,8 @@ public class SAXParser extends DefaultHandler {
                 }
                 break;
             case "ProductID":
-                if ("Cart".equals(currentParentElement)) {
-                    productIDs.add(Integer.parseInt(value));
+                if ("Cart".equals(currentParentElement) && productIDs != null) {
+                    productIDs.getProductID().add(Integer.parseInt(value));
                 }
                 break;
             case "TotalAmount":
@@ -185,6 +182,7 @@ public class SAXParser extends DefaultHandler {
                 break;
             case "Cart":
                 currentCart.setProductIDs(productIDs);
+                System.out.println(currentCart.getProductIDs().getProductID());
                 carts.add(currentCart);
                 break;
             case "User":
@@ -205,7 +203,7 @@ public class SAXParser extends DefaultHandler {
         Schema schema = sf.newSchema(new File("C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xsd"));
 
         System.out.println("--== SAX Parser ==--");
-        SAXParser parser = new SAXParser();
+        saxParser parser = new saxParser();
         parser.parse(new FileInputStream("C:/Users/Даниил/Рабочий стол/itroi/src/main/resources/static/xml/Full.xml"), schema);
 
         List<Product> products = parser.getProducts();
@@ -237,7 +235,20 @@ public class SAXParser extends DefaultHandler {
         System.out.println("--== Carts ==--");
         for (Cart cart : carts) {
             System.out.println("User ID: " + cart.getUserID());
-            System.out.println("Product IDs: " + cart.getProductIDs());
+            List<Integer> productIDs = cart.getProductIDs().getProductID();
+
+            System.out.print("Product IDs: ");
+            for (Integer productId : productIDs) {
+                System.out.print(productId + " ");
+
+                for (Product product : products) {
+                    if (product.getID() == productId) {
+                        System.out.println(" (Product Name: " + product.getName() + ")");
+                        break;
+                    }
+                }
+            }
+            System.out.println();
             System.out.println("Total Amount: " + cart.getTotalAmount());
             System.out.println("Status: " + cart.getStatus());
             System.out.println("----------------------------");
