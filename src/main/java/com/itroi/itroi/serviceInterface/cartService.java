@@ -1,14 +1,12 @@
-package com.itroi.itroi.ServiceInterfaces;
-
+package com.itroi.itroi.serviceInterface;
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.Cart;
+import com.itroi.itroi.generated_models.Cart;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
 import java.util.List;
-@WebService(targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
-public interface CartService {
-
+@WebService(targetNamespace = "http://serviceimpl.itroi.itroi.com/")
+public interface cartService {
     /**
      * Додавання продукту в корзину користувача.
      * @param userId ідентифікатор користувача
@@ -65,4 +63,5 @@ public interface CartService {
      */
     @WebMethod
     Cart getCartById(int userId);
+
 }

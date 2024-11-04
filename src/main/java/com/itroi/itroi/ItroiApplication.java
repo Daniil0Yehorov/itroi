@@ -1,8 +1,8 @@
 package com.itroi.itroi;
 
-import com.itroi.itroi.ServiceImplementation.CartServiceImpl;
-import com.itroi.itroi.ServiceImplementation.ProductServiceImpl;
-import com.itroi.itroi.ServiceImplementation.UserServiceImpl;
+import com.itroi.itroi.serviceimpl.cartImplementation;
+import com.itroi.itroi.serviceimpl.productImplementation;
+import com.itroi.itroi.serviceimpl.userImplementation;
 import jakarta.xml.ws.Endpoint;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,9 +22,9 @@ public class ItroiApplication {
 	public CommandLineRunner publishWebService() {
 		return args -> {
 
-            ProductServiceImpl productService = new ProductServiceImpl();
-            CartServiceImpl cartService = new CartServiceImpl(productService);
-		    UserServiceImpl userService=new UserServiceImpl(cartService);
+            productImplementation productService = new productImplementation();
+            cartImplementation cartService = new cartImplementation(productService);
+		    userImplementation userService=new userImplementation(cartService);
 
             Endpoint.publish("http://localhost:8081/ws/carts?wsdl", cartService);
             Endpoint.publish("http://localhost:8081/ws/products?wsdl", productService);

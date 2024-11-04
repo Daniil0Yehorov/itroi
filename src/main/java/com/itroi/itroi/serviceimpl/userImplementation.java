@@ -1,23 +1,23 @@
-package com.itroi.itroi.ServiceImplementation;
+package com.itroi.itroi.serviceimpl;
+
 
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.User;
-import com.itroi.itroi.Model.Cart;
-import com.itroi.itroi.ServiceInterfaces.CartService;
-import com.itroi.itroi.ServiceInterfaces.UserService;
+import com.itroi.itroi.generated_models.Cart;
+import com.itroi.itroi.serviceInterface.cartService;
+import com.itroi.itroi.generated_models.User;
+import com.itroi.itroi.serviceInterface.userService;
 import jakarta.jws.WebService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebService(endpointInterface = "com.itroi.itroi.ServiceInterfaces.UserService")
-public class UserServiceImpl implements UserService {
+@WebService(endpointInterface = "com.itroi.itroi.serviceInterface.userService")
+public class userImplementation implements userService {
     private final Map<Integer, User> userDatabase = new HashMap<>();
-    private final CartService cartService;
+    private final cartService CService;
 
-    public UserServiceImpl(CartService cartService) {this.cartService = cartService;}
-
+    public userImplementation (cartService CService) {this.CService = CService;}
     @Override
     public User getUserById(int userId) throws ClientFaultException {
         User user = userDatabase.get(userId);
@@ -25,15 +25,6 @@ public class UserServiceImpl implements UserService {
             throw new ClientFaultException("Користувача з ID " + userId + " не знайдено.");
         }
         return user;
-    }
-    @Override
-    public  int generateUniqueUserId() {
-        int userId = 1;
-        while (userDatabase.containsKey(userId)) {
-            userId++;
-        }
-        return userId;
-
     }
 
     @Override
@@ -45,22 +36,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-
     public void createUser(User user) throws ClientFaultException {
         if (userDatabase.containsKey(user.getID())) {
             throw new ClientFaultException("Користувач з ID " + user.getID() + " вже існує. Створення неможливе.");
         }
         userDatabase.put(user.getID(), user);
 
-        // При реєстрації користувача,для нього створюється його кошик персоналізований
         Cart cart = new Cart();
 
         cart.setUserID(user.getID());
-        cart.setProductIDs(new ArrayList<>());
+        Cart.ProductIDs productIDs = new Cart.ProductIDs();
+        productIDs.setProductID(new ArrayList<>());
         cart.setTotalAmount(0.0);
         cart.setStatus("Не оформлений кошик");
 
-        cartService.addCart(cart);
+        //CService.addCart(cart);
+        try {
+            CService.addCart(cart);
+        } catch (Exception e) {
+            throw new ClientFaultException("Помилка при створенні кошика для користувача з ID " + user.getID() + ": " + e.getMessage());
+        }
     }
 
     @Override
@@ -79,5 +74,14 @@ public class UserServiceImpl implements UserService {
             }
         }
         throw new ClientFaultException("Неправильний логін або пароль.");
+    }
+
+    @Override
+    public int generateUniqueUserId() {
+        int userId = 1;
+        while (userDatabase.containsKey(userId)) {
+            userId++;
+        }
+        return userId;
     }
 }

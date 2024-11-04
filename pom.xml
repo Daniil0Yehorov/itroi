@@ -76,7 +76,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<!--
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -130,8 +129,9 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>-->
+		</pluginManagement>
 		<!--генерація класів-->
+		<!--
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -154,6 +154,6 @@
 					</sources>
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins>-->
 	</build>
 </project>

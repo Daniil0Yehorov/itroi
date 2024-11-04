@@ -1,12 +1,12 @@
-package com.itroi.itroi.ServiceInterfaces;
+package com.itroi.itroi.serviceInterface;
 
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.User;
+import com.itroi.itroi.generated_models.User;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
-@WebService(targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
-public interface UserService {
+@WebService(targetNamespace = "http://serviceimpl.itroi.itroi.com/")
+public interface userService {
 
     /**
      * Отримання інформації про користувача.

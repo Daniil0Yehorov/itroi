@@ -1,22 +1,22 @@
-package com.itroi.itroi.ServiceInterfaces;
+package com.itroi.itroi.serviceInterface;
 
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.Product;
+import com.itroi.itroi.generated_models.Product;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
 import java.util.List;
-@WebService(targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
-public interface ProductService {
+@WebService(targetNamespace = "http://serviceimpl.itroi.itroi.com/")
+public interface productService {
 
     /**
      * Отримання списку всіх продуктів з фільтрацією і сортуванням
      * (по категорії, бренду, ціні, наявності).
-     *
+     * @throws Exception якщо виникає помилка.
      * @return список продуктів
      */
     @WebMethod
-    List<Product> getAllProducts();
+    List<Product> getAllProducts()throws  Exception;
 
     /**
      * Отримання детальної інформації про продукт по його ID.
@@ -27,7 +27,6 @@ public interface ProductService {
      */
     @WebMethod
     Product getProductById(int productId)throws ClientFaultException;
-
     /**
      * Додавання нового продукту (для адміністратора).
      *
@@ -59,6 +58,5 @@ public interface ProductService {
      * генерація ключа для продукту
      */
     @WebMethod
-     int generateUniqueProductId();
-
+    int generateUniqueProductId();
 }

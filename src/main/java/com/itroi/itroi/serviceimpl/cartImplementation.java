@@ -1,9 +1,10 @@
-package com.itroi.itroi.ServiceImplementation;
+package com.itroi.itroi.serviceimpl;
+
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.Cart;
-import com.itroi.itroi.Model.Product;
-import com.itroi.itroi.ServiceInterfaces.CartService;
-import com.itroi.itroi.ServiceInterfaces.ProductService;
+import com.itroi.itroi.generated_models.Product;
+import com.itroi.itroi.generated_models.Cart;
+import com.itroi.itroi.serviceInterface.cartService;
+import com.itroi.itroi.serviceInterface.productService;
 import jakarta.jws.WebService;
 
 import java.util.ArrayList;
@@ -11,43 +12,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebService(endpointInterface = "com.itroi.itroi.ServiceInterfaces.CartService")
-public class CartServiceImpl implements CartService {
+@WebService(endpointInterface = "com.itroi.itroi.serviceInterface.cartService")
+public class cartImplementation implements cartService {
     private final Map<Integer, Cart> cartDatabase = new HashMap<>();
-    private final ProductService productService;
+    private final productService PService;
 
-    public CartServiceImpl(ProductService productService) {this.productService = productService;}
-
-    @Override
-    public void addCart(Cart cart) {
-        cartDatabase.put(cart.getUserID(), cart);
-    }
+    public cartImplementation(productService PService) {this.PService = PService;}
     @Override
     public void addProductToCart(int userId, int productId) throws ClientFaultException {
-        Product product = productService.getProductById(productId);
+
+        Cart cart=cartDatabase.get(userId);
+        Product product = PService.getProductById(productId);
         if (product == null) {
             throw new ClientFaultException("Продукт с ID " + productId + " не знайден");
         }
 
-        Cart cart = cartDatabase.getOrDefault(userId, new Cart());
-        cart.setUserID(userId);
 
-        List<Integer> productIDs = cart.getProductIDs() != null ? cart.getProductIDs() : new ArrayList<>();
-
+        List<Integer> productIDs = cart.getProductIDs() != null ? cart.getProductIDs().getProductID() :
+                new ArrayList<>();
         if (productIDs.contains(productId)) {
             throw new ClientFaultException("Продукт вже є в кошику");
         }
 
         productIDs.add(productId);
-        cart.setProductIDs(productIDs);
-        cartDatabase.put(userId, cart);
-
+        cart.getProductIDs().setProductID(productIDs);
+        //cartDatabase.put(userId, cart);
         updateTotalAmount(cart);
+
     }
 
 
+
     @Override
-    public Cart getCart(int userId) throws  ClientFaultException {
+    public Cart getCart(int userId) throws ClientFaultException {
         Cart cart = cartDatabase.get(userId);
         if (cart == null) {
             throw new ClientFaultException("Кошик для користувача з ID " + userId + " не знайден.");
@@ -55,44 +52,35 @@ public class CartServiceImpl implements CartService {
         return cart;
     }
 
+    @Override
+    public void addCart(Cart cart) {
+        cartDatabase.put(cart.getUserID(), cart);
+    }
 
     @Override
     public void removeProductFromCart(int userId, int productId) throws ClientFaultException {
-        /*Cart cart = cartDatabase.get(userId);
-        if (cart != null) {
-            List<Integer> productIDs = cart.getProductIDs();
-            if (productIDs != null) {
-                productIDs.removeIf(id -> id == productId);
-                cart.setProductIDs(productIDs);
-                updateTotalAmount(cart);
-            }
-        }*/
         Cart cart = cartDatabase.get(userId);
-
         if (cart == null) {
             throw new ClientFaultException("Корзина для пользователя с ID " + userId + " не найдена.");
         }
 
-        List<Integer> productIDs = cart.getProductIDs();
-
-        if (productIDs == null || !productIDs.contains(productId)) {
+        List<Integer> productIDs = cart.getProductIDs().getProductID();
+        if (!productIDs.contains(productId)) {
             throw new ClientFaultException("Продукт з ID " + productId + " не знайден у кошику користувача с ID " + userId + ".");
         }
 
-        productIDs.removeIf(id -> id == productId);
-        cart.setProductIDs(productIDs);
+        productIDs.removeIf(id -> id.equals(productId));
+        cart.getProductIDs().getProductID().removeAll(productIDs);
         updateTotalAmount(cart);
     }
 
-
     @Override
-    public Cart checkout(int userId)  {
+    public Cart checkout(int userId) {
         Cart currentcart=cartDatabase.get(userId);
         currentcart.setStatus("Оформленний кошик");
 
         return currentcart;
     }
-
 
     @Override
     public List<Cart> getAllCarts() {
@@ -100,20 +88,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getCartById(int cartId) {
-        return cartDatabase.get(cartId);
+    public Cart getCartById(int userId) {
+        return cartDatabase.get(userId);
     }
-
     private void updateTotalAmount(Cart cart) throws ClientFaultException {
         double totalAmount = 0.0;
-
-        List<Integer> productIDs = cart.getProductIDs();
-        if (productIDs != null) {
-            for (Integer productId : productIDs) {
-                Product product = productService.getProductById(productId);
-                if (product != null) {
-                    totalAmount += product.getPrice();
-                }
+        List<Integer> productIDs = cart.getProductIDs().getProductID();
+        for (Integer productId : productIDs) {
+            Product product = PService.getProductById(productId);
+            if (product != null) {
+                totalAmount += product.getPrice();
             }
         }
         cart.setTotalAmount(totalAmount);

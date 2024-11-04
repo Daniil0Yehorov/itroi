@@ -1,9 +1,8 @@
-package com.itroi.itroi.ServiceImplementation;
+package com.itroi.itroi.serviceimpl;
 
 import com.itroi.itroi.Exception.ClientFaultException;
-import com.itroi.itroi.Model.Product;
-import com.itroi.itroi.ServiceInterfaces.ProductService;
-import jakarta.jws.WebMethod;
+import com.itroi.itroi.generated_models.Product;
+import com.itroi.itroi.serviceInterface.productService;
 import jakarta.jws.WebService;
 
 import java.util.ArrayList;
@@ -11,13 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebService(endpointInterface = "com.itroi.itroi.ServiceInterfaces.ProductService")
-public class ProductServiceImpl implements ProductService {
+@WebService(endpointInterface = "com.itroi.itroi.serviceInterface.productService")
+public class productImplementation implements productService {
     private final Map<Integer, Product> productDatabase = new HashMap<>();
 
     @Override
-    public List<Product> getAllProducts() {
-        return new ArrayList<>(productDatabase.values());
+    public List<Product> getAllProducts()throws  Exception {
+        try {
+            return new ArrayList<>(productDatabase.values());
+        } catch (Exception e) {
+            throw new Exception("Помилка на сервері при отриманні всіх продуктів: " + e.getMessage());
+        }
     }
 
     @Override
@@ -27,15 +30,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ClientFaultException("Продукт з ID " + productId + " не знайдено.");
         }
         return product;
-    }
-    @Override
-    public int generateUniqueProductId() {
-        int productId = 1;
 
-        while (productDatabase.containsKey(productId)) {
-            productId++;
-        }
-        return productId;
     }
 
     @Override
@@ -62,5 +57,15 @@ public class ProductServiceImpl implements ProductService {
             throw new ClientFaultException("Продукт з ID " + productId + " не знайдено. Видалення неможливе.");
         }
         productDatabase.remove(productId);
+    }
+
+    @Override
+    public int generateUniqueProductId() {
+        int productId = 1;
+
+        while (productDatabase.containsKey(productId)) {
+            productId++;
+        }
+        return productId;
     }
 }

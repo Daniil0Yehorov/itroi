@@ -261,4 +261,14 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+    public User(int ID, String type, String login, String password, String name, String phone, String email) {
+        this.id = ID;
+        this.type = type;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+    public User(){}
 }
