@@ -36,7 +36,7 @@ public class cartImplementation implements cartService {
 
         productIDs.add(productId);
         cart.getProductIDs().setProductID(productIDs);
-        //cartDatabase.put(userId, cart);
+        //cartDatabase.put(userId, cart); нужно ли сохранять чи не-разобраться
         updateTotalAmount(cart);
 
     }

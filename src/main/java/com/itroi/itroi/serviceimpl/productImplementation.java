@@ -16,11 +16,7 @@ public class productImplementation implements productService {
 
     @Override
     public List<Product> getAllProducts()throws  Exception {
-        try {
             return new ArrayList<>(productDatabase.values());
-        } catch (Exception e) {
-            throw new Exception("Помилка на сервері при отриманні всіх продуктів: " + e.getMessage());
-        }
     }
 
     @Override

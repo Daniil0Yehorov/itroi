@@ -49,13 +49,8 @@ public class userImplementation implements userService {
         productIDs.setProductID(new ArrayList<>());
         cart.setTotalAmount(0.0);
         cart.setStatus("Не оформлений кошик");
+        CService.addCart(cart);
 
-        //CService.addCart(cart);
-        try {
-            CService.addCart(cart);
-        } catch (Exception e) {
-            throw new ClientFaultException("Помилка при створенні кошика для користувача з ID " + user.getID() + ": " + e.getMessage());
-        }
     }
 
     @Override
