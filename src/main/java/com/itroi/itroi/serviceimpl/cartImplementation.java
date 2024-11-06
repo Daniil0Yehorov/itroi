@@ -36,7 +36,6 @@ public class cartImplementation implements cartService {
 
         productIDs.add(productId);
         cart.getProductIDs().setProductID(productIDs);
-        //cartDatabase.put(userId, cart); нужно ли сохранять чи не-разобраться
         updateTotalAmount(cart);
 
     }
@@ -61,7 +60,7 @@ public class cartImplementation implements cartService {
     public void removeProductFromCart(int userId, int productId) throws ClientFaultException {
         Cart cart = cartDatabase.get(userId);
         if (cart == null) {
-            throw new ClientFaultException("Корзина для пользователя с ID " + userId + " не найдена.");
+            throw new ClientFaultException("Корзина для користувача з ID " + userId + " не знайдена.");
         }
 
         List<Integer> productIDs = cart.getProductIDs().getProductID();
@@ -70,7 +69,6 @@ public class cartImplementation implements cartService {
         }
 
         productIDs.removeIf(id -> id.equals(productId));
-        cart.getProductIDs().getProductID().removeAll(productIDs);
         updateTotalAmount(cart);
     }
 
